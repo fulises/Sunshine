@@ -1,5 +1,6 @@
 package app.com.example.ulixes.sunshine;
 
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -98,21 +99,38 @@ public  class ForecastFragment extends Fragment {
         public class FetchweatherTask extends AsyncTask<URL, Integer, Long>{
 
         private final String LOG_TAG= FetchweatherTask.class.getSimpleName();//She wants somthing to be in sync???
-        //  ("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7");
+        //  ("http://api.openweathermap.org/data/2.5/forecast/daily?q=08861&mode=json&units=imperial&cnt=7");
         // using URI builder implementation for the query sting
-            final String FORECAST_BASE_URI = "http://api.openweathermap.org/data/2.5/forecast/daily";
+            final String FORECAST_BASE_URI =
+                "http://api.openweathermap.org/data/2.5/forecast/daily?";
+
+
             final String Q_PARAM ="q";
             final String F_PARAM = "mode";
-            final String U_PARAM = "imperial";
+            final String U_PARAM = "units";
             final String Days_PARAM = "cnt";
 
-            
+
+
+            Uri platano = Uri.parse(FORECAST_BASE_URI).buildUpon()
+                    .appendQueryParameter(Q_PARAM, "08861")
+                    .appendQueryParameter(F_PARAM,"json")
+                    .appendQueryParameter(U_PARAM,"imperial")
+                    .appendQueryParameter(Days_PARAM,Integer.toString(7))
+                    .build();
+            String platanoString = platano.toString();
 
 
 
 
 
-        @Override
+
+
+
+
+
+
+            @Override
         protected Long doInBackground(URL... params) {
             // These two need to be declared outside the try/catch  x
         // so that they can be closed in the finally block.
@@ -127,7 +145,7 @@ public  class ForecastFragment extends Fragment {
             // Construct the URL for the OpenWeatherMap query
             // Possible parameters are available at OWM's forecast API page, at
             // http://openweathermap.org/API#forecast
-            URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7");
+            URL url = new URL(platano.toString());
 
             // Create the request to OpenWeatherMap, and open the connection
             urlConnection = (HttpURLConnection) url.openConnection();
