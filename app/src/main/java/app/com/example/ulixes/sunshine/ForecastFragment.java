@@ -145,7 +145,7 @@ public  class ForecastFragment extends Fragment {
             // Construct the URL for the OpenWeatherMap query
             // Possible parameters are available at OWM's forecast API page, at
             // http://openweathermap.org/API#forecast
-            URL url = new URL(platano.toString());
+            URL url = new URL(platano.toString());//Se estaba explotando porque hay que manejar execptiones sabra dios despues lo investigamos
 
             // Create the request to OpenWeatherMap, and open the connection
             urlConnection = (HttpURLConnection) url.openConnection();
