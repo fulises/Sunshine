@@ -26,8 +26,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -111,6 +113,16 @@ public class ForecastFragment extends Fragment {
         ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
         listView.setAdapter(forecastAdapter);
 
+         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                    @Override
+             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                 String forecast = forecastAdapter.getItem(position);
+                 Toast.makeText(getActivity(), forecast, Toast.LENGTH_SHORT).show();
+                 }
+             });
+
+
         return rootView;
     }
 
@@ -193,7 +205,7 @@ public class ForecastFragment extends Fragment {
                 resultStrs[i] = day + " - " + description + " - " + highAndLow;
             }
 
-            
+
             return resultStrs;
 
         }
@@ -267,7 +279,7 @@ public class ForecastFragment extends Fragment {
                 }
                 forecastJsonStr = buffer.toString();
 
-                Log.v(LOG_TAG, "Forecast string: " + forecastJsonStr);
+                
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Error ", e);
                 // If the code didn't successfully get the weather data, there's no point in attemping
