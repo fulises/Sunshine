@@ -16,9 +16,11 @@
 package app.com.example.ulixes.sunshine;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -53,9 +55,7 @@ import java.util.List;
 public class ForecastFragment extends Fragment {
     private ArrayAdapter<String> forecastAdapter ;
 
-    public ForecastFragment() {
-    }
-
+    //public ForecastFragment() {    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,10 +76,30 @@ public class ForecastFragment extends Fragment {
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
             FetchWeatherTask weatherTask = new FetchWeatherTask();
-            weatherTask.execute("94043");
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String location = preferences.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
+            weatherTask.execute("location");
+            return true;
+        }
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+           // Intent intent = new Intent(this,SettingsActivity.class);
+           // startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    private void updateWeather(){
+        FetchWeatherTask weatherTask = new FetchWeatherTask();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String location = preferences.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
+        weatherTask.execute("location");
+
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        updateWeather();
     }
 
     @Override
@@ -129,6 +149,7 @@ public class ForecastFragment extends Fragment {
 
         return rootView;
     }
+
 
     public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
 
