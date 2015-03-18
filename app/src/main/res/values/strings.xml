@@ -5,6 +5,7 @@
     <string name="action_refresh">Refresh</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="detail_text">Hello world!</string>
+    <string name="action_geoloc">GeoLoc</string>
 
 
      <!-- Label for the location preference [CHAR LIMIT=30] -->

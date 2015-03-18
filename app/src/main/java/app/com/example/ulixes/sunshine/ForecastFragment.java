@@ -51,6 +51,8 @@ import java.util.Date;
  * Encapsulates fetching the forecast and displaying it as a {@link ListView} layout.
  */
 public class ForecastFragment extends Fragment {
+    private final String LOG_TAG = ForecastFragment.class.getSimpleName();
+
     private ArrayAdapter<String> forecastAdapter ;
 
     //public ForecastFragment() {    }
@@ -78,9 +80,17 @@ public class ForecastFragment extends Fragment {
         }
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-           // Intent intent = new Intent(this,SettingsActivity.class);
-           // startActivity(intent);
+            // Intent intent = new Intent(this,SettingsActivity.class);
+            // startActivity(intent);
             return true;
+
+        }
+        if (id == R.id.action_geoloc) {
+            // Intent intent = new Intent(this,SettingsActivity.class);
+            // startActivity(intent);
+
+            return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -91,6 +101,8 @@ public class ForecastFragment extends Fragment {
         weatherTask.execute("location");
 
     }
+
+
     @Override
     public void onStart() {
         super.onStart();
