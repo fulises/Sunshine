@@ -27,7 +27,7 @@ public class SettingsActivity extends PreferenceActivity
 // updated when the preference changes.
 // TODO: Add preferences
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));
-
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_units_key)));
     }
     /**
      * Attaches a listener so the summary is always updated with the preference value.
